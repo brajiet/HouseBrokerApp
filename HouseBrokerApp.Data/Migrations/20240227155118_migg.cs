@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HouseBrokerApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class MIGGG : Migration
+    public partial class migg : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,7 @@ namespace HouseBrokerApp.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsBroker = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,6 +49,58 @@ namespace HouseBrokerApp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BuildingNo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    StreetAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    ContactPerson = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    PropertyValuation = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NearestLandmark = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Images1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Images2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Images3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisteredPropertyOwner = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearBuilt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalArea = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyDetail", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Registration",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PermanentAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    TemporaryAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    ContactNo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    ContactNo1 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    CitizenShipNo = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CitizenShipIssuedFrom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CitizenShipIssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsBroker = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Registration", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +209,55 @@ namespace HouseBrokerApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Rating",
+                columns: table => new
+                {
+                    RatingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RatingNo = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RatingUserNo = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rating", x => x.RatingId);
+                    table.ForeignKey(
+                        name: "FK_Rating_PropertyDetail_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "PropertyDetail",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardInformation",
+                columns: table => new
+                {
+                    CardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RatingId = table.Column<int>(type: "int", nullable: true),
+                    PreferredBuilding = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WhatTheyLike = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AmountToInvest = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscoveredThrough = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CurrentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardInformation", x => x.CardId);
+                    table.ForeignKey(
+                        name: "FK_CardInformation_Rating_RatingId",
+                        column: x => x.RatingId,
+                        principalTable: "Rating",
+                        principalColumn: "RatingId");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +296,16 @@ namespace HouseBrokerApp.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardInformation_RatingId",
+                table: "CardInformation",
+                column: "RatingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_PropertyId",
+                table: "Rating",
+                column: "PropertyId");
         }
 
         /// <inheritdoc />
@@ -215,10 +327,22 @@ namespace HouseBrokerApp.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CardInformation");
+
+            migrationBuilder.DropTable(
+                name: "Registration");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Rating");
+
+            migrationBuilder.DropTable(
+                name: "PropertyDetail");
         }
     }
 }

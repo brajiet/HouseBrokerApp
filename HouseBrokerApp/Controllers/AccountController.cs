@@ -1,0 +1,81 @@
+﻿using HouseBrokerApp.Data.Entities;
+using HouseBrokerApp.Domain.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HouseBrokerApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register(RegistrationVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    if (model.IsBroker)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Broker");
+                        user.IsBroker = true;
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "HouseSeeker");
+                        user.IsBroker = false;
+                    }
+                    await _userManager.UpdateAsync(user);
+
+                    return Ok("Registration successful");
+                }
+                return BadRequest("Registration failed");
+            }
+            return BadRequest(ModelState);
+        }
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    if (user != null)
+                    {
+                        if (user.IsBroker)
+                        {
+                            // User is a broker
+                            return Ok("Broker login successful");
+                        }
+                        else
+                        {
+                            // User is a house seeker
+                            return Ok("House seeker login successful");
+                        }
+                    }
+                    return NotFound("User not found");
+                }
+                return BadRequest("Invalid login attempt");
+            }
+            return BadRequest(ModelState);
+        }
+
+    }
+}
+
