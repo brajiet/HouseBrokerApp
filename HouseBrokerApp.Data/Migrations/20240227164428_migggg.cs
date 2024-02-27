@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HouseBrokerApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class migg : Migration
+    public partial class migggg : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

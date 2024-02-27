@@ -22,29 +22,34 @@ namespace HouseBrokerApp.Controllers
         [Route("register")]
         public async Task<IActionResult> Register(RegistrationVM model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    if (model.IsBroker)
-                    {
-                        await _userManager.AddToRoleAsync(user, "Broker");
-                        user.IsBroker = true;
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, "HouseSeeker");
-                        user.IsBroker = false;
-                    }
-                    await _userManager.UpdateAsync(user);
-
-                    return Ok("Registration successful");
-                }
-                return BadRequest("Registration failed");
+                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             }
-            return BadRequest(ModelState);
+
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                if (model.IsBroker)
+                {
+                    await _userManager.AddToRoleAsync(user, "Broker");
+                    user.IsBroker = true;
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "HouseSeeker");
+                    user.IsBroker = false;
+                }
+
+                await _userManager.UpdateAsync(user);
+
+                return Ok("Registration successful");
+            }
+
+            var errors = result.Errors.Select(e => e.Description);
+            return BadRequest(string.Join(", ", errors));
         }
         [HttpPost]
         [Route("login")]
