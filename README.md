@@ -23,7 +23,11 @@ Steps For Running Application
 11. Now confirm email with registered valid email
 12. after successfull confirmation, go to login part of account section, provide registered email and password
    and will be login successfull, if as broker then as broker else as houseseeker
-13. 
+13. Now we can perform CRUD operations for brokerdetails
+14. similarly , perform CRUD operations for propertylisting
+    note: on Update,we should pass Id and on Create, on Id section we should uncheck Send Empty value and pass empty value
+15. Similary, on Houseseeker Section we can perform various search functions. 
+    
 
    
    
