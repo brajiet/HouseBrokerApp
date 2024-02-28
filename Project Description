@@ -8,6 +8,7 @@ By adhering to RESTful principles, I ensured that the APIs are easy to understan
 These APIs enable seamless interaction with the application, allowing clients to retrieve, create, update, and 
 delete data through standard HTTP methods like GET, POST, PUT, and DELETE. 
 I have used Swagger for documenting, testing, and interacting with APIs. 
+
 It uses MSSQL Server for stroing and retrieving data.
 
 Application consists of main 5 Projects
