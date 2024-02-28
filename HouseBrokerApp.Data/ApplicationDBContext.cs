@@ -14,5 +14,7 @@ namespace HouseBrokerApp.Data
         public DbSet<PropertyDetail> PropertyDetail { get; set; }
         public DbSet<Registration> Registration { get; set; }
         public DbSet<Rating> Rating { get; set; }
+        public DbSet<BrokerDetail> BrokerDetail { get; set; }
+
     }
 }

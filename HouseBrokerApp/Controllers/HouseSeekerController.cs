@@ -16,8 +16,7 @@ namespace HouseBrokerApp.Controllers
         {
             _propertylisting = propertylisting;
         }
-        //[HttpPost]
-        //[Route("create")]
+
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Property>>> SearchProperties(
         string location, decimal? minPrice, decimal? maxPrice, string propertyType)

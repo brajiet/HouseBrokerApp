@@ -18,6 +18,8 @@ namespace HouseBrokerApp.Data.Entities
         [StringLength(20)]
         public required string LastName { get; set; }
         [StringLength(30)]
+        public string? BrokerLicenseNo { get; set; }
+        [StringLength(30)]
         public required string PermanentAddress { get; set; }
         [StringLength(30)]
         public required string TemporaryAddress { get; set; }
