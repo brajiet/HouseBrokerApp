@@ -11,14 +11,14 @@ HouseBrokerApp.sln
 │   │   ├── Entities
 │   │   ├── Migrations
 │   ├── ApplicationDBContext
-├── HouseBrokerApp.Application
-│   ├── DTOs
-│   ├── Interfaces
-│   ├── Services
-├── HouseBrokerApp.WebAPI
-│   ├── Controllers
-│   ├── Startup.cs
-│   ├── appsettings.json
-├── HouseBrokerApp.Tests
+├── HouseBrokerApp.Doman
+│   ├── DTOs/Models
+├── HouseBrokerApp.Infrastructure
+│   ├── Interface
+│   ├── Mapper
+│   ├── Repository
+    ├── Services
+    ├── Utilities
+├── HouseBrokerApp.TestCases
 │   ├── UnitTests
-│   ├── IntegrationTests
+      PropertyListingControllerTest
