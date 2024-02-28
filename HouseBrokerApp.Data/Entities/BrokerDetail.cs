@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace HouseBrokerApp.Data.Entities
 {
-    public class Registration
+    public class BrokerDetail
     {
+        [Key]
         public long Id { get; set; }
         [StringLength(20)]
         public required string FirstName { get; set; }
@@ -24,14 +25,13 @@ namespace HouseBrokerApp.Data.Entities
         public required string ContactNo { get; set; }
         [StringLength(10)]
         public string? ContactNo1 { get; set; }
+        [EmailAddress]
+        [StringLength(100)]
+        public required string Email { get; set; }
         [StringLength(25)]
         public required string CitizenShipNo { get; set; }
         [StringLength(25)]
         public required string CitizenShipIssuedFrom { get; set; }
         public DateTime CitizenShipIssuedDate { get; set; }
-        [EmailAddress]
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-        public bool IsBroker { get; set; }
     }
 }

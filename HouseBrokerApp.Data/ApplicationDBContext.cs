@@ -1,5 +1,4 @@
 ﻿using HouseBrokerApp.Data.Entities;
-using HouseBrokerApp.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

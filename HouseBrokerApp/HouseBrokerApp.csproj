@@ -22,10 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HouseBrokerApp.Data\HouseBrokerApp.Data.csproj" />
     <ProjectReference Include="..\HouseBrokerApp.Domain\HouseBrokerApp.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middleware\" />
+    <ProjectReference Include="..\HouseBrokerApp.Infrastructure\HouseBrokerApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

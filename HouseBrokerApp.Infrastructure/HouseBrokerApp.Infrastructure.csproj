@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Repository\" />
-    <Folder Include="Mapper\" />
-    <Folder Include="Utilities\" />
     <Folder Include="Services\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HouseBrokerApp.Data\HouseBrokerApp.Data.csproj" />
+    <ProjectReference Include="..\HouseBrokerApp.Domain\HouseBrokerApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

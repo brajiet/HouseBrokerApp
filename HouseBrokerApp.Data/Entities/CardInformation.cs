@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseBrokerApp.Domain.Models
+namespace HouseBrokerApp.Data.Entities
 {
     public class CardInformation
     {
@@ -15,11 +15,11 @@ namespace HouseBrokerApp.Domain.Models
         public int CardId { get; set; }
         public int? RatingId { get; set; }
         public virtual  Rating Rating { get; set; }
-        public required string PreferredBuilding { get; init; }
-        public required string Reason { get; init; }
-        public required string WhatTheyLike { get; init; }
-        public required decimal AmountToInvest { get; init; }
-        public required string DiscoveredThrough { get; init; }
+        public required string PreferredBuilding { get; set; }
+        public required string Reason { get; set; }
+        public required string WhatTheyLike { get; set; }
+        public required decimal AmountToInvest { get; set; }
+        public required string DiscoveredThrough { get; set; }
         public  int UserId { get; set; }
         public bool IsActive { get; set; }
         public string CurrentStatus { get; set; }
@@ -31,8 +31,8 @@ namespace HouseBrokerApp.Domain.Models
         public int PropertyId { get; set; }
         public virtual PropertyDetail Property { get; set; }
         public int UserId { get; set; }
-        public int RatingNo { get; init; }
-        public string Comment { get; init; }
-        public int RatingUserNo { get; init; }
+        public int RatingNo { get; set; }
+        public string Comment { get; set; }
+        public int RatingUserNo { get; set; }
     }
 }

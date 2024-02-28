@@ -12,31 +12,32 @@ namespace HouseBrokerApp.Domain.Models
 
     {
         [Key]
-        public int Id { get; init; }
+        public int Id { get; set; }
         [StringLength(30)]
         public required string BuildingNo { get; set; }
         [StringLength(30)]
-        public required string  Name { get; init; }
+        public required string  BuildingName { get; set; }
         [StringLength(30)]
-        public required string Location { get; init; }
+        public required string Location { get; set; }
         [StringLength(30)]
-        public required string StreetAddress { get; init; }
+        public required string StreetAddress { get; set; }
         [StringLength(30)]
-        public required string ContactPerson { get; init; }
-        public decimal PropertyValuation { get; init; }
+        public required string ContactPerson { get; set; }
+        public decimal PropertyValuation { get; set; }
         [StringLength(30)]
-        public required string NearestLandmark { get; init; }
+        public required string NearestLandmark { get; set; }
         [StringLength(30)]
-        public required string ContactNumber { get; init; }
-        public required string Images { get; init; }
-        public required string Images1 { get; init; }
-        public required string Images2 { get; init; }
-        public required string Images3 { get; init; }
+        public required string ContactNumber { get; set; }
+        public required string FeaturesofBuildings { get; set; }
+        public required string Images { get; set; }
+        public required string Images1 { get; set; }
+        public required string Images2 { get; set; }
+        public required string Images3 { get; set; }
 
         [Display(Name= "Registered Property Owner")]
-        public required string RegisteredPropertyOwner { get; init; }
-        public required string YearBuilt { get; init; }
-        public required string TotalArea { get; init; }
+        public required string RegisteredPropertyOwner { get; set; }
+        public required string YearBuilt { get; set; }
+        public required string TotalAreaCovered { get; set; }
     }
 
 }

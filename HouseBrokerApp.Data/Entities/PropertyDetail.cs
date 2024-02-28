@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseBrokerApp.Domain.Models
+namespace HouseBrokerApp.Data.Entities
 {
     public class PropertyDetail
 
@@ -32,6 +32,7 @@ namespace HouseBrokerApp.Domain.Models
         public required string Images1 { get; init; }
         public required string Images2 { get; init; }
         public required string Images3 { get; init; }
+        public required string PropertyType { get; set; }
 
         [Display(Name= "Registered Property Owner")]
         public required string RegisteredPropertyOwner { get; init; }

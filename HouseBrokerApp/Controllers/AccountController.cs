@@ -32,6 +32,7 @@ namespace HouseBrokerApp.Controllers
 
             if (result.Succeeded)
             {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 if (model.IsBroker)
                 {
                     await _userManager.AddToRoleAsync(user, "Broker");
@@ -51,6 +52,28 @@ namespace HouseBrokerApp.Controllers
             var errors = result.Errors.Select(e => e.Description);
             return BadRequest(string.Join(", ", errors));
         }
+        [HttpPost]
+        [Route("confirmemail")]
+        public async Task<IActionResult> ConfirmEmail(string Email)
+        {
+            
+            var user = await _userManager.FindByNameAsync(Email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return Ok("Email confirmed successfully.");
+            }
+
+            return BadRequest("Email confirmation failed.");
+        }
+
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginVM model)
