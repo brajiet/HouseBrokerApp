@@ -1,4 +1,14 @@
-This application is built on ASP.NET CORE .NET 8, it uses MSSQLServer for performing CRUD operations
+This is web application built using ASP.NET Core, .NET 8, 
+and a few essential libraries like Entity Framework Core, AutoMapper, 
+and Identity. 
+Additionally, I've implemented RESTful APIs within the application using ASP.NET Core's built-in support for web APIs.
+Leveraging ASP.NET Core's powerful routing and controller features,
+I was able to define endpoints for performing CRUD operations on various resources.
+By adhering to RESTful principles, I ensured that the APIs are easy to understand, predictable, and scalable. 
+These APIs enable seamless interaction with the application, allowing clients to retrieve, create, update, and 
+delete data through standard HTTP methods like GET, POST, PUT, and DELETE. 
+I have used Swagger for documenting, testing, and interacting with APIs. 
+It uses MSSQL Server for stroing and retrieving data.
 
 Application consists of main 5 Projects
 HouseBrokerApp.sln
