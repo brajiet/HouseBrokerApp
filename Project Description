@@ -1,0 +1,24 @@
+This application is built on ASP.NET CORE .NET 8, it uses MSSQLServer for performing CRUD operations
+
+Application consists of main 5 Projects
+HouseBrokerApp.sln
+├── HouseBrokerApp
+│   ├── Controllers/API
+│   ├── Middleware
+│   appsettings.json(for database connectivity)
+|   Program.cs(Entry point of application)
+├── HouseBrokerApp.Data
+│   │   ├── Entities
+│   │   ├── Migrations
+│   ├── ApplicationDBContext
+├── HouseBrokerApp.Application
+│   ├── DTOs
+│   ├── Interfaces
+│   ├── Services
+├── HouseBrokerApp.WebAPI
+│   ├── Controllers
+│   ├── Startup.cs
+│   ├── appsettings.json
+├── HouseBrokerApp.Tests
+│   ├── UnitTests
+│   ├── IntegrationTests
