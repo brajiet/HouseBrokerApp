@@ -24,43 +24,43 @@ namespace HouseBrokerApp.Infrastructure.Repository
         }
         public async Task<IEnumerable<BrokerDetailsVM>> GetAll()
         {
-            var propertyDetails = await _context.PropertyDetail.ToListAsync();
-            var BrokerDetailsVMs = _mapper.Map<IEnumerable<PropertyDetail>, IEnumerable<BrokerDetailsVM>>(propertyDetails);
+            var brokerDetails = await _context.BrokerDetail.ToListAsync();
+            var BrokerDetailsVMs = _mapper.Map<IEnumerable<BrokerDetail>, IEnumerable<BrokerDetailsVM>>(brokerDetails);
             return BrokerDetailsVMs;
         }
         public async Task<int> Create(BrokerDetailsVM listing)
         {
-            var propertyDetailEntity = _mapper.Map<BrokerDetailsVM, PropertyDetail>(listing);
-            _context.PropertyDetail.Add(propertyDetailEntity);
+            var brokerDetails = _mapper.Map<BrokerDetailsVM, BrokerDetail>(listing);
+            _context.BrokerDetail.Add(brokerDetails);
             await _context.SaveChangesAsync();
-            return propertyDetailEntity.Id;
+            return brokerDetails.Id;
         }
 
         public async Task<bool> Delete(int id)
         {
-            var propertyDetail = await _context.PropertyDetail.FindAsync(id);
-            if (propertyDetail == null)
+            var brokerDetails = await _context.BrokerDetail.FindAsync(id);
+            if (brokerDetails == null)
                 return false;
 
-            _context.PropertyDetail.Remove(propertyDetail);
+            _context.BrokerDetail.Remove(brokerDetails);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<BrokerDetailsVM> GetById(int id)
         {
-            var propertyDetail = await _context.PropertyDetail.FindAsync(id);
-            var BrokerDetailsVM = _mapper.Map<PropertyDetail, BrokerDetailsVM>(propertyDetail);
+            var brokerDetails = await _context.BrokerDetail.FindAsync(id);
+            var BrokerDetailsVM = _mapper.Map<BrokerDetail, BrokerDetailsVM>(brokerDetails);
             return BrokerDetailsVM;
         }
 
-        public async Task<bool> Update(BrokerDetailsVM listing)
+        public async Task<bool> Update(BrokerDetailsVM brokerDetails)
         {
-            var existingPropertyDetail = await _context.PropertyDetail.FindAsync(listing.Id);
-            if (existingPropertyDetail == null)
+            var existingbrokerDetails = await _context.BrokerDetail.FindAsync(brokerDetails.Id);
+            if (existingbrokerDetails == null)
                 return false;
 
-            _mapper.Map(listing, existingPropertyDetail);
+            _mapper.Map(brokerDetails, existingbrokerDetails);
             await _context.SaveChangesAsync();
             return true;
         }

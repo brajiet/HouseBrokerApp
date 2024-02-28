@@ -48,6 +48,7 @@ namespace HouseBrokerApp.Infrastructure.Repository
         {
             try
             {
+                listing.Id = 0;
                 var propertyDetailEntity = _mapper.Map<PropertyDetailVM, PropertyDetail>(listing);
                 _context.PropertyDetail.Add(propertyDetailEntity);
                 await _context.SaveChangesAsync();
@@ -119,7 +120,7 @@ namespace HouseBrokerApp.Infrastructure.Repository
             }
            
         }
-        public async Task<IEnumerable<PropertyDetail>> SearchByParams(string location, decimal? minPrice, decimal? maxPrice, string propertyType)
+        public async Task<IEnumerable<PropertyDetail>> SearchByParams(string? location, decimal? minPrice, decimal? maxPrice, string? propertyType)
         {
             try
             {

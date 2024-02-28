@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,12 +12,14 @@ namespace HouseBrokerApp.Domain.Models
     public class PropertyDetailVM
 
     {
-        [Key]
+
         public int Id { get; set; }
         [StringLength(30)]
         public required string BuildingNo { get; set; }
         [StringLength(30)]
         public required string  BuildingName { get; set; }
+        [StringLength(30)]
+        public required string PropertyType { get; set; }
         [StringLength(30)]
         public required string Location { get; set; }
         [StringLength(30)]
@@ -29,15 +32,15 @@ namespace HouseBrokerApp.Domain.Models
         [StringLength(30)]
         public required string ContactNumber { get; set; }
         public required string FeaturesofBuildings { get; set; }
-        public required string Images { get; set; }
-        public required string Images1 { get; set; }
-        public required string Images2 { get; set; }
-        public required string Images3 { get; set; }
+        public IFormFile ImagesFile { get; set; }
+        public string Images { get; set; }
+        public IFormFile ImagesFile1 { get; set; }
+        public string Images1 { get; set; }
 
         [Display(Name= "Registered Property Owner")]
         public required string RegisteredPropertyOwner { get; set; }
         public required string YearBuilt { get; set; }
         public required string TotalAreaCovered { get; set; }
     }
-
+    
 }

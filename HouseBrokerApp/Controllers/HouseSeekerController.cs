@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
+using HouseBrokerApp.Domain.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace HouseBrokerApp.Controllers
 {
@@ -17,12 +19,14 @@ namespace HouseBrokerApp.Controllers
             _propertylisting = propertylisting;
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Property>>> SearchProperties(
-        string location, decimal? minPrice, decimal? maxPrice, string propertyType)
+        [HttpGet]
+        [Route("searchproperties")]
+        public async Task<ActionResult<IEnumerable<PropertyDetailVM>>> SearchProperties(
+        string? location, decimal? minPrice, decimal? maxPrice, string? propertyType)
         {
             var result = await _propertylisting.SearchByParams(location, minPrice, maxPrice, propertyType);
             return Ok(result);
         }
+        
     }
 }

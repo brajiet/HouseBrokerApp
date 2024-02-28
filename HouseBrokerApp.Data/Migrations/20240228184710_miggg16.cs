@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HouseBrokerApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class sss : Migration
+    public partial class miggg16 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,55 +52,54 @@ namespace HouseBrokerApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BrokerDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    BrokerLicenseNo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    PermanentAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    TemporaryAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    ContactNo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    ContactNo1 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CitizenShipNo = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CitizenShipIssuedFrom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    CitizenShipIssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BrokerDetail", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PropertyDetail",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BuildingNo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    BuildingName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    PropertyType = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Location = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     StreetAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ContactPerson = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PropertyValuation = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     NearestLandmark = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ContactNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    FeaturesofBuildings = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Images1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Images2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Images3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RegisteredPropertyOwner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     YearBuilt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalArea = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TotalAreaCovered = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PropertyDetail", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Registration",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PermanentAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    TemporaryAddress = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    ContactNo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    ContactNo1 = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    CitizenShipNo = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    CitizenShipIssuedFrom = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    CitizenShipIssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsBroker = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Registration", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -149,8 +148,8 @@ namespace HouseBrokerApp.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -194,8 +193,8 @@ namespace HouseBrokerApp.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -327,10 +326,10 @@ namespace HouseBrokerApp.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CardInformation");
+                name: "BrokerDetail");
 
             migrationBuilder.DropTable(
-                name: "Registration");
+                name: "CardInformation");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

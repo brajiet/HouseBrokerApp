@@ -9,7 +9,7 @@ namespace HouseBrokerApp.Domain.Models
 {
     public class BrokerDetailsVM
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         [StringLength(20)]
         public required string FirstName { get; set; }
         [StringLength(20)]
