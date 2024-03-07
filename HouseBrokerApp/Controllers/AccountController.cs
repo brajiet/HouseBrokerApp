@@ -1,5 +1,6 @@
 ﻿using HouseBrokerApp.Data.Entities;
 using HouseBrokerApp.Domain.Models;
+using HouseBrokerApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,12 @@ namespace HouseBrokerApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IJwtTokenService _tokenService;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJwtTokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
         [HttpPost]
         [Route("register")]
@@ -88,13 +90,14 @@ namespace HouseBrokerApp.Controllers
                     {
                         if (user.IsBroker)
                         {
-                            // User is a broker
-                            return Ok("Broker login successful");
+                            var token = _tokenService.GenerateJwtToken(model);
+                            return Ok(token);
                         }
                         else
                         {
                             // User is a house seeker
-                            return Ok("House seeker login successful");
+                            var token = _tokenService.GenerateJwtToken(model);
+                            return Ok(token);
                         }
                     }
                     return NotFound("User not found");

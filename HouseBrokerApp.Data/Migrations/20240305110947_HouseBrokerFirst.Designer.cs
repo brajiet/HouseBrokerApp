@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseBrokerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240228184710_miggg16")]
-    partial class miggg16
+    [Migration("20240305110947_HouseBrokerFirst")]
+    partial class HouseBrokerFirst
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
