@@ -129,10 +129,10 @@ builder.Services.AddSwaggerGen(c =>
             }
         });
 });
-builder.Services.AddCors(x =>
-{
-    x.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
+//builder.Services.AddCors(x =>
+//{
+//    x.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

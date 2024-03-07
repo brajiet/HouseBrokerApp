@@ -32,8 +32,6 @@ namespace HouseBrokerApp.Data.Entities
         [StringLength(30)]
         public required string ContactNumber { get; set; }
         public required string FeaturesofBuildings { get; set; }
-        public required string Images { get; set; }
-        public required string Images1 { get; set; }
 
         [Display(Name = "Registered Property Owner")]
         public required string RegisteredPropertyOwner { get; set; }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseBrokerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240305110947_HouseBrokerFirst")]
-    partial class HouseBrokerFirst
+    [Migration("20240307121043_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,14 +240,6 @@ namespace HouseBrokerApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Images")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Images1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -286,6 +278,35 @@ namespace HouseBrokerApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PropertyDetail");
+                });
+
+            modelBuilder.Entity("HouseBrokerApp.Data.Entities.PropertyImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PropertyDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProperyDetailId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyDetailId");
+
+                    b.ToTable("PropertyImage");
                 });
 
             modelBuilder.Entity("HouseBrokerApp.Data.Entities.Rating", b =>
@@ -459,6 +480,17 @@ namespace HouseBrokerApp.Data.Migrations
                         .HasForeignKey("RatingId");
 
                     b.Navigation("Rating");
+                });
+
+            modelBuilder.Entity("HouseBrokerApp.Data.Entities.PropertyImage", b =>
+                {
+                    b.HasOne("HouseBrokerApp.Data.Entities.PropertyDetail", "PropertyDetail")
+                        .WithMany()
+                        .HasForeignKey("PropertyDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PropertyDetail");
                 });
 
             modelBuilder.Entity("HouseBrokerApp.Data.Entities.Rating", b =>

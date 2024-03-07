@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HouseBrokerApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class HouseBrokerFirst : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -91,8 +91,6 @@ namespace HouseBrokerApp.Data.Migrations
                     NearestLandmark = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ContactNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     FeaturesofBuildings = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Images1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RegisteredPropertyOwner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     YearBuilt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalAreaCovered = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -209,6 +207,28 @@ namespace HouseBrokerApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PropertyImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProperyDetailId = table.Column<int>(type: "int", nullable: false),
+                    PropertyDetailId = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PropertyImage_PropertyDetail_PropertyDetailId",
+                        column: x => x.PropertyDetailId,
+                        principalTable: "PropertyDetail",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rating",
                 columns: table => new
                 {
@@ -302,6 +322,11 @@ namespace HouseBrokerApp.Data.Migrations
                 column: "RatingId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PropertyImage_PropertyDetailId",
+                table: "PropertyImage",
+                column: "PropertyDetailId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rating_PropertyId",
                 table: "Rating",
                 column: "PropertyId");
@@ -330,6 +355,9 @@ namespace HouseBrokerApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CardInformation");
+
+            migrationBuilder.DropTable(
+                name: "PropertyImage");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

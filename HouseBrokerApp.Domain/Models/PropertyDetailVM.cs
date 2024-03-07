@@ -12,7 +12,7 @@ namespace HouseBrokerApp.Domain.Models
     public class PropertyDetailVM
 
     {
-
+        [Key]
         public int Id { get; set; }
         [StringLength(30)]
         public required string BuildingNo { get; set; }
@@ -32,10 +32,7 @@ namespace HouseBrokerApp.Domain.Models
         [StringLength(30)]
         public required string ContactNumber { get; set; }
         public required string FeaturesofBuildings { get; set; }
-        public IFormFile ImagesFile { get; set; }
-        public string Images { get; set; }
-        public IFormFile ImagesFile1 { get; set; }
-        public string Images1 { get; set; }
+        public List<IFormFile>? ImagesFile { get; set; }
 
         [Display(Name= "Registered Property Owner")]
         public required string RegisteredPropertyOwner { get; set; }
