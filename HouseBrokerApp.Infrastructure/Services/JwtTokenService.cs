@@ -27,7 +27,7 @@ namespace HouseBrokerApp.Infrastructure.Services
             new Claim(ClaimTypes.Role,"Broker")
             };
             var Key = _config.GetSection("Jwt:Key").Value;
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key ?? ""));
             var signingCred = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
             var securityToken = new JwtSecurityToken(
                 claims: claims,

@@ -27,7 +27,7 @@ namespace HouseBrokerApp.Controllers
         public async Task<ActionResult<IEnumerable<PropertyDetailVM>>> SearchProperties(
         string? location, decimal? minPrice, decimal? maxPrice, string? propertyType)
         {
-            var result = await _propertylisting.SearchByParams(location, minPrice, maxPrice, propertyType);
+            var result = await _propertylisting.SearchByParams(location ?? "", minPrice, maxPrice, propertyType ?? "");
             return Ok(result);
         }
         
