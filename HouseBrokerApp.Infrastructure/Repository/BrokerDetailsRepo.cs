@@ -35,8 +35,7 @@ namespace HouseBrokerApp.Infrastructure.Repository
         public async Task<int> Create(BrokerDetailsVM listing)
         {
             var brokerDetails = _mapper.Map<BrokerDetailsVM, BrokerDetail>(listing);
-            _context.BrokerDetail.Add(brokerDetails);
-            await _context.SaveChangesAsync();
+            await  _context.BrokerDetail.AddAsync(brokerDetails);
             return brokerDetails.Id;
         }
 
@@ -47,7 +46,6 @@ namespace HouseBrokerApp.Infrastructure.Repository
                 return false;
 
             _context.BrokerDetail.Remove(brokerDetails);
-            await _context.SaveChangesAsync();
             return true;
         }
 
@@ -65,7 +63,6 @@ namespace HouseBrokerApp.Infrastructure.Repository
                 return false;
 
             _mapper.Map(brokerDetails, existingbrokerDetails);
-            await _context.SaveChangesAsync();
             return true;
         }
     }

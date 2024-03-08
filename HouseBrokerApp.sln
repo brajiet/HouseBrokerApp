@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp", "HouseBrokerApp\HouseBrokerApp.csproj", "{15A5F55A-DF04-425B-8F6F-04C644F82468}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseBrokerApp", "HouseBrokerApp\HouseBrokerApp.csproj", "{15A5F55A-DF04-425B-8F6F-04C644F82468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp.Domain", "HouseBrokerApp.Domain\HouseBrokerApp.Domain.csproj", "{25EDB9BE-3868-441C-907C-45A4DFA0FB7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseBrokerApp.Domain", "HouseBrokerApp.Domain\HouseBrokerApp.Domain.csproj", "{25EDB9BE-3868-441C-907C-45A4DFA0FB7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp.Data", "HouseBrokerApp.Data\HouseBrokerApp.Data.csproj", "{B6B43DDC-C21E-44CF-A0BB-DFEB60115527}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseBrokerApp.Data", "HouseBrokerApp.Data\HouseBrokerApp.Data.csproj", "{B6B43DDC-C21E-44CF-A0BB-DFEB60115527}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp.Infrastructure", "HouseBrokerApp.Infrastructure\HouseBrokerApp.Infrastructure.csproj", "{A5ED63EF-9147-4B8D-AD8C-8F786FEC9D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseBrokerApp.Infrastructure", "HouseBrokerApp.Infrastructure\HouseBrokerApp.Infrastructure.csproj", "{A5ED63EF-9147-4B8D-AD8C-8F786FEC9D83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp.TestCases", "HouseBrokerApp.TestCases\HouseBrokerApp.TestCases.csproj", "{7E8BC301-6C95-487A-88F4-2DAA1CD4C0B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseBrokerApp.TestCases", "HouseBrokerApp.TestCases\HouseBrokerApp.TestCases.csproj", "{7E8BC301-6C95-487A-88F4-2DAA1CD4C0B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBrokerApp.Application", "HouseBrokerApp.Application\HouseBrokerApp.Application.csproj", "{E06BC89F-6B61-43F4-89D3-AB062BBA1634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{7E8BC301-6C95-487A-88F4-2DAA1CD4C0B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E8BC301-6C95-487A-88F4-2DAA1CD4C0B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E8BC301-6C95-487A-88F4-2DAA1CD4C0B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06BC89F-6B61-43F4-89D3-AB062BBA1634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06BC89F-6B61-43F4-89D3-AB062BBA1634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06BC89F-6B61-43F4-89D3-AB062BBA1634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06BC89F-6B61-43F4-89D3-AB062BBA1634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

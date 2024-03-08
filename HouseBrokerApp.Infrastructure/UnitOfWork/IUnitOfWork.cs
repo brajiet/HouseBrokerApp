@@ -9,9 +9,12 @@ namespace HouseBrokerApp.Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        Task<int> SaveChangesAsync();
         IPropertyListing PropertyListing { get; }
         IBrokerDetails  BrokerDetails { get; }
         IPropertyImage  PropertyImage { get; }
+        Task<int> SaveChangesAsync();
+        Task BeginTransactionAsync();
+        Task CommitAsync();
+        Task RollbackAsync();
     }
 }

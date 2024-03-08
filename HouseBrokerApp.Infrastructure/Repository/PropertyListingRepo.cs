@@ -53,7 +53,7 @@ namespace HouseBrokerApp.Infrastructure.Repository
             {
                 listing.Id = 0;
                 var propertyDetailEntity = _mapper.Map<PropertyDetailVM, PropertyDetail>(listing);
-                await _context.PropertyDetail.AddAsync(propertyDetailEntity);
+                _context.PropertyDetail.Add(propertyDetailEntity);
                 await _context.SaveChangesAsync();
                 return propertyDetailEntity.Id;
             }
