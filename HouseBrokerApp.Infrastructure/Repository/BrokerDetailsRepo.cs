@@ -17,6 +17,10 @@ namespace HouseBrokerApp.Infrastructure.Repository
         private readonly ApplicationDBContext _context;
         private IMapper _mapper;
 
+        public BrokerDetailsRepo(ApplicationDBContext context)
+        {
+            _context = context;
+        }
         public BrokerDetailsRepo(ApplicationDBContext context, IMapper mapper)
         {
             _context = context;

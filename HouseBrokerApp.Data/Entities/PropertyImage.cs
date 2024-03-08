@@ -17,5 +17,7 @@ namespace HouseBrokerApp.Data.Entities
         public virtual PropertyDetail PropertyDetail { get; set; }
         public required string Image { get; set; }
         public required string Description { get; set; }
+        public DateTime AddedeDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

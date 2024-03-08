@@ -1,5 +1,6 @@
 ﻿using HouseBrokerApp.Domain.Models;
 using HouseBrokerApp.Infrastructure.Interface;
+using HouseBrokerApp.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,13 +14,11 @@ namespace HouseBrokerApp.Controllers
     [ApiController]
     public class PropertyListingController : ControllerBase
     {
-        private readonly IPropertyListing _propertylisting;
-        private readonly IWebHostEnvironment _environment;
-
-        public PropertyListingController(IPropertyListing propertylisting, IWebHostEnvironment environment)
+        private readonly IUnitOfWork _unitOfWork;
+       
+        public PropertyListingController(IUnitOfWork unitOfWork)
         {
-            _propertylisting = propertylisting;
-            _environment = environment; 
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -29,28 +28,22 @@ namespace HouseBrokerApp.Controllers
         {
             try
             {
-                //if (listing.Images == null || listing.Images1 == null)
-                //{
-                //    return Content("File not selected");
-                //}
-
-                var directoryPath = Path.Combine(_environment.ContentRootPath, "Images");
-
-                // Ensure directory exists or create it
-                if (!Directory.Exists(directoryPath))
+                if (listing.ImagesFile == null )
                 {
-                    Directory.CreateDirectory(directoryPath);
+                    return Content("Image not selected");
                 }
 
+
+
                 //var imageName1 = Guid.NewGuid().ToString() + Path.GetExtension(listing.ImagesFile.FileName);
-               // var imageName2 = Guid.NewGuid().ToString() + Path.GetExtension(listing.ImagesFile1.FileName);
+                // var imageName2 = Guid.NewGuid().ToString() + Path.GetExtension(listing.ImagesFile1.FileName);
 
                 // Combine base path with file names
-              //  var imagePath1 = Path.Combine(directoryPath, imageName1);
-               // var imagePath2 = Path.Combine(directoryPath, imageName2);
+                //  var imagePath1 = Path.Combine(directoryPath, imageName1);
+                // var imagePath2 = Path.Combine(directoryPath, imageName2);
 
-               // listing.Images = imageName1;
-               // listing.Images1 = imageName2;
+                // listing.Images = imageName1;
+                // listing.Images1 = imageName2;
                 // Copy the images asynchronously
                 //using (var stream1 = new FileStream(imagePath1, FileMode.Create))
                 //using (var stream2 = new FileStream(imagePath2, FileMode.Create))
@@ -58,7 +51,8 @@ namespace HouseBrokerApp.Controllers
                 //   await listing.ImagesFile.CopyToAsync(stream1);
                 //    await listing.ImagesFile1.CopyToAsync(stream2);
                 //}
-                var result = await _propertylisting.Create(listing);
+                var Id = await _unitOfWork.PropertyListing.Create(listing);
+                var result = await _unitOfWork.PropertyImage.SaveImage(listing.ImagesFile,Id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -74,7 +68,7 @@ namespace HouseBrokerApp.Controllers
         {
             try
             {
-                var result = await _propertylisting.Update(listing);
+                var result = await _unitOfWork.PropertyListing.Update(listing);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -89,7 +83,7 @@ namespace HouseBrokerApp.Controllers
         {
             try
             {
-                var result = await _propertylisting.Delete(id);
+                var result = await _unitOfWork.PropertyListing.Delete(id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -105,7 +99,7 @@ namespace HouseBrokerApp.Controllers
 
             try
             {
-                var users = await _propertylisting.GetAll();
+                var users = await _unitOfWork.PropertyListing.GetAll();
                 return Ok(users); 
             }
             catch (Exception ex)
@@ -120,7 +114,7 @@ namespace HouseBrokerApp.Controllers
         {
             try
             {
-                var listing = await _propertylisting.GetById(id);
+                var listing = await _unitOfWork.PropertyListing.GetById(id);
                 if (listing == null)
                     return NotFound(); // Return 404 if listing is not found
                 return Ok(listing);

@@ -1,6 +1,7 @@
 ﻿using HouseBrokerApp.Controllers;
 using HouseBrokerApp.Domain.Models;
 using HouseBrokerApp.Infrastructure.Interface;
+using HouseBrokerApp.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,24 +16,21 @@ namespace HouseBrokerApp.TestCases
 {
     public class PropertyListingControllerTest
     {
-        private Mock<IPropertyListing> _mockPropertyListing;
-        private Mock<IWebHostEnvironment> _webHostEnvironmentMock;
+        private Mock<IUnitOfWork> _mockUnitOfWork;
         private PropertyListingController _controller;
 
         [SetUp]
         public void Setup()
         {
-            _mockPropertyListing = new Mock<IPropertyListing>();
-            _webHostEnvironmentMock = new Mock<IWebHostEnvironment>();
-            _controller = new PropertyListingController(_mockPropertyListing.Object, _webHostEnvironmentMock.Object);
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
+            _controller = new PropertyListingController(_mockUnitOfWork.Object);
         }
-
         [Test]
         public async Task GetAll_ReturnsOkResultWithData()
         {
             // Arrange
             var expectedData = new List<PropertyDetailVM>();
-            _mockPropertyListing.Setup(repo => repo.GetAll()).ReturnsAsync(expectedData);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.GetAll()).ReturnsAsync(expectedData);
 
             // Act
             var result = await _controller.GetAll() as OkObjectResult;
@@ -47,7 +45,7 @@ namespace HouseBrokerApp.TestCases
         public async Task GetAll_ReturnsInternalServerErrorWhenExceptionThrown()
         {
             // Arrange
-            _mockPropertyListing.Setup(repo => repo.GetAll()).ThrowsAsync(new Exception());
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.GetAll()).ThrowsAsync(new Exception());
 
             // Act
             var result = await _controller.GetAll() as ObjectResult;
@@ -83,9 +81,7 @@ namespace HouseBrokerApp.TestCases
             var formFile1 = new FormFile(Stream.Null, 0, 0, "image1.jpg", "image1.jpg");
             var formFile2 = new FormFile(Stream.Null, 0, 0, "image2.jpg", "image2.jpg");
 
-            _webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns("dummyPath");
-
-            _mockPropertyListing.Setup(repo => repo.GetById(id)).ReturnsAsync(expectedListing);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.GetById(id)).ReturnsAsync(expectedListing);
 
             // Act
             var result = await _controller.GetById(id) as OkObjectResult;
@@ -101,7 +97,7 @@ namespace HouseBrokerApp.TestCases
         {
             // Arrange
             int id = 456;
-            _mockPropertyListing.Setup(repo => repo.GetById(id)).ReturnsAsync((PropertyDetailVM)null);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.GetById(id)).ReturnsAsync((PropertyDetailVM)null);
 
             // Act
             var result = await _controller.GetById(id);
@@ -135,9 +131,7 @@ namespace HouseBrokerApp.TestCases
             var formFile1 = new FormFile(Stream.Null, 0, 0, "image1.jpg", "image1.jpg");
             var formFile2 = new FormFile(Stream.Null, 0, 0, "image2.jpg", "image2.jpg");
 
-            _webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns("dummyPath");
-
-            _mockPropertyListing.Setup(repo => repo.Create(newListing)).ReturnsAsync(1);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Create(newListing)).ReturnsAsync(1);
 
             // Act
             var result = await _controller.Create(newListing) as OkObjectResult;
@@ -168,9 +162,7 @@ namespace HouseBrokerApp.TestCases
             var formFile1 = new FormFile(Stream.Null, 0, 0, "image1.jpg", "image1.jpg");
             var formFile2 = new FormFile(Stream.Null, 0, 0, "image2.jpg", "image2.jpg");
 
-            _webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns("dummyPath");
-
-            _mockPropertyListing.Setup(repo => repo.Create(newListing)).ThrowsAsync(new Exception());
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Create(newListing)).ThrowsAsync(new Exception());
 
             // Act
             var result = await _controller.Create(newListing) as ObjectResult;
@@ -205,9 +197,7 @@ namespace HouseBrokerApp.TestCases
             var formFile1 = new FormFile(Stream.Null, 0, 0, "image1.jpg", "image1.jpg");
             var formFile2 = new FormFile(Stream.Null, 0, 0, "image2.jpg", "image2.jpg");
 
-            _webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns("dummyPath");
-
-            _mockPropertyListing.Setup(repo => repo.Update(updatedListing)).ReturnsAsync(true);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Update(updatedListing)).ReturnsAsync(true);
 
             // Act
             var result = await _controller.Update(updatedListing) as OkObjectResult;
@@ -241,9 +231,7 @@ namespace HouseBrokerApp.TestCases
             var formFile1 = new FormFile(Stream.Null, 0, 0, "image1.jpg", "image1.jpg");
             var formFile2 = new FormFile(Stream.Null, 0, 0, "image2.jpg", "image2.jpg");
 
-            _webHostEnvironmentMock.Setup(env => env.ContentRootPath).Returns("dummyPath");
-
-            _mockPropertyListing.Setup(repo => repo.Update(updatedListing)).ThrowsAsync(new Exception());
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Update(updatedListing)).ThrowsAsync(new Exception());
 
             // Act
             var result = await _controller.Update(updatedListing) as ObjectResult;
@@ -260,7 +248,7 @@ namespace HouseBrokerApp.TestCases
             // Arrange
             int idToDelete = 123; // Id of the listing to delete
 
-            _mockPropertyListing.Setup(repo => repo.Delete(idToDelete)).ReturnsAsync(true);
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Delete(idToDelete)).ReturnsAsync(true);
 
             // Act
             var result = await _controller.Delete(idToDelete) as OkObjectResult;
@@ -276,7 +264,7 @@ namespace HouseBrokerApp.TestCases
             // Arrange
             int idToDelete = 789; // Id of the listing to delete
 
-            _mockPropertyListing.Setup(repo => repo.Delete(idToDelete)).ThrowsAsync(new Exception());
+            _mockUnitOfWork.Setup(repo => repo.PropertyListing.Delete(idToDelete)).ThrowsAsync(new Exception());
 
             // Act
             var result = await _controller.Delete(idToDelete) as ObjectResult;

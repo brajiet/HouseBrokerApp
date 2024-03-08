@@ -14,6 +14,7 @@ namespace HouseBrokerApp.Domain.Models
         public int ProperyId { get; set; }
         public required string Image { get; set; }
         public required string Description { get; set; }
-        public required PropertyDetailVM PropertyDetail { get; set; }
+        public DateTime AddedeDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

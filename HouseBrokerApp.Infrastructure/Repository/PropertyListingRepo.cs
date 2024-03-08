@@ -28,7 +28,10 @@ namespace HouseBrokerApp.Infrastructure.Repository
             _mapper = mapper;
             _logger = logger;
         }
-
+        public PropertyListingRepo(ApplicationDBContext context)
+        {
+            _context = context;
+        }
         public async Task<IEnumerable<PropertyDetailVM>> GetAll()
         {
             try
@@ -50,7 +53,7 @@ namespace HouseBrokerApp.Infrastructure.Repository
             {
                 listing.Id = 0;
                 var propertyDetailEntity = _mapper.Map<PropertyDetailVM, PropertyDetail>(listing);
-                _context.PropertyDetail.Add(propertyDetailEntity);
+                await _context.PropertyDetail.AddAsync(propertyDetailEntity);
                 await _context.SaveChangesAsync();
                 return propertyDetailEntity.Id;
             }

@@ -18,6 +18,9 @@ namespace HouseBrokerApp.Infrastructure.Mapper
 
             CreateMap<BrokerDetailsVM, BrokerDetail>();
             CreateMap<BrokerDetailsVM, BrokerDetail>().ReverseMap();
+
+            CreateMap<PropertyImageVM, PropertyImage>();
+            CreateMap<PropertyImageVM, PropertyImage>().ReverseMap();
         }
        
     }
